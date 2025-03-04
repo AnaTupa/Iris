@@ -6,14 +6,13 @@ import pickle
 
 st.set_page_config(layout="wide")
 
-st.title("Iris Plant Prediction app")
+st.title("Iris Plant Prediction App")
 
 # reading all the pickle files
-model_scaler = pickle.load(open('scaler_iris.pkl','rb')) # 1st pickle scale model
-model_lr = pickle.load(open('model_iris.pkl','rb')) # 2nd pickle basic model
+iris_model = pickle.load(open('iris_model.pkl','rb'))
 
 
-# user need to define the input
+# user needs to define the input
 st.header("Enter the input values")
 
 sepal_length=st.number_input(" Enter the float value for Sepal Lenght in cm **Min=4.3 Max=7.9**")
@@ -30,12 +29,8 @@ user_input={'sepal length (cm)':sepal_length,
 # convert to Dataframe
 user_input_df=pd.DataFrame(user_input,index=[0])
 
-
-# scale the user_data
-user_input_df_scaled=model_scaler.transform(user_input_df)
-
 # Predict the Iris species
-prediction = model_lr.predict(user_input_df_scaled)
+prediction = iris_model.predict(user_input_df)
 
 if st.button("Predict"):
    
